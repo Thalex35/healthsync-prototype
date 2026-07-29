@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SuiviRouteImport } from './routes/suivi'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as RendezVousRouteImport } from './routes/rendez-vous'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -16,6 +17,11 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SuiviRoute = SuiviRouteImport.update({
+  id: '/suivi',
+  path: '/suivi',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/rendez-vous': typeof RendezVousRoute
   '/services': typeof ServicesRoute
+  '/suivi': typeof SuiviRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/rendez-vous': typeof RendezVousRoute
   '/services': typeof ServicesRoute
+  '/suivi': typeof SuiviRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/rendez-vous': typeof RendezVousRoute
   '/services': typeof ServicesRoute
+  '/suivi': typeof SuiviRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,8 +90,16 @@ export interface FileRouteTypes {
     | '/faq'
     | '/rendez-vous'
     | '/services'
+    | '/suivi'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/a-propos' | '/contact' | '/faq' | '/rendez-vous' | '/services'
+  to:
+    | '/'
+    | '/a-propos'
+    | '/contact'
+    | '/faq'
+    | '/rendez-vous'
+    | '/services'
+    | '/suivi'
   id:
     | '__root__'
     | '/'
@@ -91,6 +108,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/rendez-vous'
     | '/services'
+    | '/suivi'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -100,10 +118,18 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   RendezVousRoute: typeof RendezVousRoute
   ServicesRoute: typeof ServicesRoute
+  SuiviRoute: typeof SuiviRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/suivi': {
+      id: '/suivi'
+      path: '/suivi'
+      fullPath: '/suivi'
+      preLoaderRoute: typeof SuiviRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
@@ -156,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   RendezVousRoute: RendezVousRoute,
   ServicesRoute: ServicesRoute,
+  SuiviRoute: SuiviRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
