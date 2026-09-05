@@ -24,7 +24,9 @@ export function Header() {
           </span>
           <span className="min-w-0">
             <span className="block truncate font-display text-lg font-extrabold">MDS Lab</span>
-            <span className="block truncate text-xs text-muted-foreground">Laboratoire médical · Haïti</span>
+            <span className="block truncate text-xs text-muted-foreground">
+              Laboratoire médical · Haïti
+            </span>
           </span>
         </Link>
 
@@ -49,13 +51,17 @@ export function Header() {
             <Phone className="h-4 w-4" /> +509 3700 0000
           </a>
           <Button asChild size="sm" className="hidden sm:inline-flex">
-            <Link to="/rendez-vous">Prendre rendez-vous</Link>
+            <Link to="/rendez-vous" search={{ service: undefined }}>
+              Prendre rendez-vous
+            </Link>
           </Button>
           <Button
             variant="ghost"
             size="icon"
             className="lg:hidden"
             aria-label="Menu"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -64,7 +70,10 @@ export function Header() {
       </div>
 
       {open && (
-        <nav className="border-t border-border bg-background px-4 py-3 lg:hidden">
+        <nav
+          id="mobile-navigation"
+          className="border-t border-border bg-background px-4 py-3 lg:hidden"
+        >
           <div className="flex flex-col">
             {nav.map((item) => (
               <Link
@@ -77,7 +86,11 @@ export function Header() {
               </Link>
             ))}
             <Button asChild className="mt-2">
-              <Link to="/rendez-vous" onClick={() => setOpen(false)}>
+              <Link
+                to="/rendez-vous"
+                search={{ service: undefined }}
+                onClick={() => setOpen(false)}
+              >
                 Prendre rendez-vous
               </Link>
             </Button>

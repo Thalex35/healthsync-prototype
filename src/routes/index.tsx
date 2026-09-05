@@ -27,7 +27,10 @@ export const Route = createFileRoute("/")({
         content:
           "Laboratoire d'analyses médicales à Port-au-Prince, ouvert 7j/7 : rendez-vous en ligne, résultats numériques et suivi patient sécurisé.",
       },
-      { property: "og:title", content: "MDS Lab Haïti — Analyses médicales & rendez-vous en ligne" },
+      {
+        property: "og:title",
+        content: "MDS Lab Haïti — Analyses médicales & rendez-vous en ligne",
+      },
       {
         property: "og:description",
         content: "Rendez-vous en ligne, résultats numériques et suivi patient sécurisé, 7j/7.",
@@ -66,7 +69,7 @@ function Index() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" variant="secondary">
-                <Link to="/rendez-vous">
+                <Link to="/rendez-vous" search={{ service: undefined }}>
                   Prendre rendez-vous <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -154,8 +157,12 @@ function Index() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
             <div className="min-w-0">
-              <p className="text-sm font-semibold uppercase tracking-wide text-primary">Nos spécialités</p>
-              <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">Un plateau technique complet</h2>
+              <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+                Nos spécialités
+              </p>
+              <h2 className="mt-2 text-3xl font-extrabold sm:text-4xl">
+                Un plateau technique complet
+              </h2>
             </div>
             <Button asChild variant="outline">
               <Link to="/services">Voir tous les services</Link>
@@ -187,18 +194,35 @@ function Index() {
 
       {/* Parcours */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <h2 className="text-center text-3xl font-extrabold sm:text-4xl">Votre parcours en 4 étapes</h2>
+        <h2 className="text-center text-3xl font-extrabold sm:text-4xl">
+          Votre parcours en 4 étapes
+        </h2>
         <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
           Une expérience pensée pour réduire l'attente et vous garder informé à chaque étape.
         </p>
         <ol className="mt-12 grid gap-6 md:grid-cols-4">
           {[
-            { t: "Réservez en ligne", d: "Choisissez votre analyse, votre spécialiste et votre créneau en 60 secondes." },
-            { t: "Préparez-vous", d: "Vous recevez les consignes (jeûne, documents) par SMS et email." },
-            { t: "Venez au laboratoire", d: "Votre dossier est déjà prêt : prélèvement rapide, sans file d'attente." },
-            { t: "Consultez vos résultats", d: "Notification dès validation, PDF signé et partage avec votre médecin." },
+            {
+              t: "Réservez en ligne",
+              d: "Choisissez votre analyse, votre spécialiste et votre créneau en 60 secondes.",
+            },
+            {
+              t: "Préparez-vous",
+              d: "Vous recevez les consignes (jeûne, documents) par SMS et email.",
+            },
+            {
+              t: "Venez au laboratoire",
+              d: "Votre dossier est déjà prêt : prélèvement rapide, sans file d'attente.",
+            },
+            {
+              t: "Consultez vos résultats",
+              d: "Notification dès validation, PDF signé et partage avec votre médecin.",
+            },
           ].map((step, i) => (
-            <li key={step.t} className="relative rounded-2xl border border-border bg-card p-6 shadow-soft">
+            <li
+              key={step.t}
+              className="relative rounded-2xl border border-border bg-card p-6 shadow-soft"
+            >
               <span className="grid h-9 w-9 place-items-center rounded-full bg-hero-gradient font-display text-sm font-bold text-primary-foreground">
                 {i + 1}
               </span>
@@ -215,9 +239,18 @@ function Index() {
           <h2 className="text-3xl font-extrabold sm:text-4xl">Ils nous font confiance</h2>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {[
-              { n: "Nadège S.", t: "Rendez-vous pris le soir, prélèvement le lendemain à 7h. Résultats reçus avant midi." },
-              { n: "Jean-Robert P.", t: "Le suivi en ligne me permet de comparer mes bilans d'une année à l'autre. Très clair." },
-              { n: "Clinique Bel-Air", t: "Nos patients sont orientés en quelques clics et nous recevons les comptes rendus directement." },
+              {
+                n: "Nadège S.",
+                t: "Rendez-vous pris le soir, prélèvement le lendemain à 7h. Résultats reçus avant midi.",
+              },
+              {
+                n: "Jean-Robert P.",
+                t: "Le suivi en ligne me permet de comparer mes bilans d'une année à l'autre. Très clair.",
+              },
+              {
+                n: "Clinique Bel-Air",
+                t: "Nos patients sont orientés en quelques clics et nous recevons les comptes rendus directement.",
+              },
             ].map((r) => (
               <Card key={r.n} className="border-border/70">
                 <CardContent className="p-6">
@@ -245,7 +278,7 @@ function Index() {
             </p>
           </div>
           <Button asChild size="lg" variant="secondary">
-            <Link to="/rendez-vous">
+            <Link to="/rendez-vous" search={{ service: undefined }}>
               Prendre rendez-vous <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

@@ -90,7 +90,10 @@ function Booking() {
     (step === 0 && !!service) ||
     (step === 1 && !!specialist) ||
     (step === 2 && !!date && !!time) ||
-    (step === 3 && form.name.trim() !== "" && form.phone.trim() !== "" && form.reason.trim() !== "");
+    (step === 3 &&
+      form.name.trim() !== "" &&
+      form.phone.trim() !== "" &&
+      form.reason.trim() !== "");
 
   const reference = useMemo(
     () => "MDS-" + Math.random().toString(36).slice(2, 7).toUpperCase(),
@@ -128,6 +131,19 @@ function Booking() {
                 onClick={() => {
                   setConfirmed(false);
                   setStep(0);
+                  setService(undefined);
+                  setSpecialist(undefined);
+                  setDate(undefined);
+                  setTime(undefined);
+                  setForm({
+                    name: "",
+                    phone: "",
+                    email: "",
+                    reason: "",
+                    notes: "",
+                    fasting: false,
+                    home: false,
+                  });
                 }}
               >
                 Nouvelle demande
@@ -182,7 +198,10 @@ function Booking() {
                     onClick={() => {
                       setService(s.slug);
                       setSpecialist(undefined);
+                      setDate(undefined);
+                      setTime(undefined);
                     }}
+                    aria-pressed={service === s.slug}
                     className={`rounded-2xl border p-4 text-left transition-colors ${
                       service === s.slug
                         ? "border-primary bg-primary/5"
@@ -190,7 +209,9 @@ function Booking() {
                     }`}
                   >
                     <p className="font-semibold">{s.title}</p>
-                    <p className="mt-1 text-sm text-muted-foreground">{s.delay} · {s.price}</p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {s.delay} · {s.price}
+                    </p>
                   </button>
                 ))}
               </div>
@@ -205,6 +226,7 @@ function Booking() {
                   <button
                     key={s.id}
                     onClick={() => setSpecialist(s.id)}
+                    aria-pressed={specialist === s.id}
                     className={`flex items-center gap-4 rounded-2xl border p-4 text-left transition-colors ${
                       specialist === s.id
                         ? "border-primary bg-primary/5"
@@ -212,7 +234,11 @@ function Booking() {
                     }`}
                   >
                     <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-hero-gradient font-display font-bold text-primary-foreground">
-                      {s.name.split(" ").slice(-2).map((p) => p[0]).join("")}
+                      {s.name
+                        .split(" ")
+                        .slice(-2)
+                        .map((p) => p[0])
+                        .join("")}
                     </span>
                     <span className="min-w-0">
                       <span className="block truncate font-semibold">{s.name}</span>
@@ -222,6 +248,7 @@ function Booking() {
                 ))}
                 <button
                   onClick={() => setSpecialist("indifferent")}
+                  aria-pressed={specialist === "indifferent"}
                   className={`rounded-2xl border p-4 text-left transition-colors ${
                     specialist === "indifferent"
                       ? "border-primary bg-primary/5"
@@ -229,7 +256,9 @@ function Booking() {
                   }`}
                 >
                   <p className="font-semibold">Peu importe</p>
-                  <p className="mt-1 text-sm text-muted-foreground">Le premier praticien disponible</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Le premier praticien disponible
+                  </p>
                 </button>
               </div>
             </div>
@@ -244,9 +273,15 @@ function Booking() {
                   return (
                     <button
                       key={d.toISOString()}
-                      onClick={() => setDate(d)}
+                      onClick={() => {
+                        setDate(d);
+                        setTime(undefined);
+                      }}
+                      aria-pressed={active}
                       className={`rounded-xl border px-2 py-3 text-center transition-colors ${
-                        active ? "border-primary bg-primary/10 text-primary" : "border-border hover:border-primary/50"
+                        active
+                          ? "border-primary bg-primary/10 text-primary"
+                          : "border-border hover:border-primary/50"
                       }`}
                     >
                       <span className="block text-xs uppercase text-muted-foreground">
@@ -273,6 +308,7 @@ function Booking() {
                           key={t}
                           disabled={taken}
                           onClick={() => setTime(t)}
+                          aria-pressed={time === t}
                           className={`rounded-xl border py-2.5 text-sm transition-colors ${
                             taken
                               ? "cursor-not-allowed border-dashed border-border text-muted-foreground/50 line-through"
@@ -299,6 +335,9 @@ function Booking() {
                   <Input
                     id="name"
                     value={form.name}
+                    required
+                    minLength={2}
+                    maxLength={100}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="Ex. Marie-Ange Joseph"
                   />
@@ -307,6 +346,10 @@ function Booking() {
                   <Input
                     id="phone"
                     value={form.phone}
+                    required
+                    inputMode="tel"
+                    pattern="[+0-9 ()-]{8,20}"
+                    maxLength={20}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     placeholder="+509 …"
                   />
@@ -316,6 +359,7 @@ function Booking() {
                     id="email"
                     type="email"
                     value={form.email}
+                    maxLength={120}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="vous@exemple.com"
                   />
@@ -324,6 +368,9 @@ function Booking() {
                   <Input
                     id="reason"
                     value={form.reason}
+                    required
+                    minLength={3}
+                    maxLength={200}
                     onChange={(e) => setForm({ ...form, reason: e.target.value })}
                     placeholder="Ex. Contrôle de routine, fatigue…"
                   />
@@ -334,6 +381,7 @@ function Booking() {
                       id="notes"
                       rows={4}
                       value={form.notes}
+                      maxLength={1000}
                       onChange={(e) => setForm({ ...form, notes: e.target.value })}
                       placeholder="Traitements en cours, allergies, ordonnance du médecin, antécédents…"
                     />
@@ -369,7 +417,9 @@ function Booking() {
           <div className="mt-8 flex flex-wrap items-center gap-2">
             {chosenService && <Badge variant="secondary">{chosenService.title}</Badge>}
             {chosenSpecialist && <Badge variant="secondary">{chosenSpecialist.name}</Badge>}
-            {specialist === "indifferent" && <Badge variant="secondary">Praticien indifférent</Badge>}
+            {specialist === "indifferent" && (
+              <Badge variant="secondary">Praticien indifférent</Badge>
+            )}
             {date && <Badge variant="secondary">{fmtLong.format(date)}</Badge>}
             {time && <Badge variant="secondary">{time}</Badge>}
           </div>

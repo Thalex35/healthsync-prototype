@@ -81,7 +81,9 @@ function Faq() {
             <Link to="/contact">Nous contacter</Link>
           </Button>
           <Button asChild variant="outline">
-            <Link to="/rendez-vous">Prendre rendez-vous</Link>
+            <Link to="/rendez-vous" search={{ service: undefined }}>
+              Prendre rendez-vous
+            </Link>
           </Button>
         </div>
       </div>

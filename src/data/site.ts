@@ -15,7 +15,12 @@ export const services: Service[] = [
     icon: "TestTube",
     description:
       "Analyses sanguines complètes réalisées sur automates de dernière génération, avec double contrôle qualité.",
-    points: ["Hémogramme (NFS)", "Glycémie & HbA1c", "Bilan lipidique", "Fonction rénale et hépatique"],
+    points: [
+      "Hémogramme (NFS)",
+      "Glycémie & HbA1c",
+      "Bilan lipidique",
+      "Fonction rénale et hépatique",
+    ],
     delay: "Résultats en 24h",
     price: "À partir de 1 500 HTG",
   },
@@ -35,7 +40,12 @@ export const services: Service[] = [
     icon: "ScanLine",
     description:
       "Échographie et radiologie numérique interprétées par nos médecins radiologues partenaires.",
-    points: ["Échographie abdominale", "Échographie obstétricale", "Radiologie numérique", "Doppler"],
+    points: [
+      "Échographie abdominale",
+      "Échographie obstétricale",
+      "Radiologie numérique",
+      "Doppler",
+    ],
     delay: "Compte rendu le jour même",
     price: "À partir de 3 500 HTG",
   },
@@ -65,23 +75,53 @@ export const services: Service[] = [
     icon: "Building2",
     description:
       "Bilans périodiques et campagnes de dépistage pour les entreprises, ONG et institutions.",
-    points: ["Visites d'embauche", "Bilans périodiques", "Campagnes de dépistage", "Rapports agrégés"],
+    points: [
+      "Visites d'embauche",
+      "Bilans périodiques",
+      "Campagnes de dépistage",
+      "Rapports agrégés",
+    ],
     delay: "Planification sur mesure",
     price: "Sur devis",
   },
 ];
 
 export const specialists = [
-  { id: "dr-jean", name: "Dr. Marlyne Jean", role: "Biologiste médicale", services: ["biologie", "microbiologie"] },
+  {
+    id: "dr-jean",
+    name: "Dr. Marlyne Jean",
+    role: "Biologiste médicale",
+    services: ["biologie", "microbiologie"],
+  },
   { id: "dr-pierre", name: "Dr. Ronald Pierre", role: "Cardiologue", services: ["cardiologie"] },
   { id: "dr-louis", name: "Dr. Sandra Louis", role: "Radiologue", services: ["imagerie"] },
-  { id: "inf-celestin", name: "Inf. Widlyne Célestin", role: "Infirmière préleveuse", services: ["prelevement-domicile", "biologie"] },
-  { id: "dr-augustin", name: "Dr. Frantz Augustin", role: "Médecin du travail", services: ["medecine-travail"] },
+  {
+    id: "inf-celestin",
+    name: "Inf. Widlyne Célestin",
+    role: "Infirmière préleveuse",
+    services: ["prelevement-domicile", "biologie"],
+  },
+  {
+    id: "dr-augustin",
+    name: "Dr. Frantz Augustin",
+    role: "Médecin du travail",
+    services: ["medecine-travail"],
+  },
 ];
 
 export const timeSlots = [
-  "06:45", "07:15", "07:45", "08:15", "09:00", "09:30",
-  "10:15", "11:00", "13:30", "14:15", "15:00", "15:45",
+  "06:45",
+  "07:15",
+  "07:45",
+  "08:15",
+  "09:00",
+  "09:30",
+  "10:15",
+  "11:00",
+  "13:30",
+  "14:15",
+  "15:00",
+  "15:45",
 ];
 
 export const faqs = [

@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Award, HeartHandshake, Microscope, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import teamImg from "@/assets/team.jpg";
+import missionImg from "@/assets/hero-lab.jpg";
 import { specialists } from "@/data/site";
 
 export const Route = createFileRoute("/a-propos")({
@@ -17,7 +17,8 @@ export const Route = createFileRoute("/a-propos")({
       { property: "og:title", content: "À propos — MDS Lab Haïti" },
       {
         property: "og:description",
-        content: "Une équipe médicale expérimentée et un plateau technique moderne à Port-au-Prince.",
+        content:
+          "Une équipe médicale expérimentée et un plateau technique moderne à Port-au-Prince.",
       },
     ],
   }),
@@ -34,16 +35,17 @@ function About() {
             Une pratique médicale parmi les plus anciennes et les plus respectées du pays
           </h1>
           <p className="mt-5 max-w-2xl text-muted-foreground">
-            Depuis 25 ans, MDS Lab accompagne les familles haïtiennes, les cliniques et les entreprises
-            avec des analyses fiables, des délais courts et une relation humaine avant tout.
+            Depuis 25 ans, MDS Lab accompagne les familles haïtiennes, les cliniques et les
+            entreprises avec des analyses fiables, des délais courts et une relation humaine avant
+            tout.
           </p>
         </div>
       </section>
 
       <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2">
         <img
-          src={teamImg}
-          alt="L'équipe médicale de MDS Lab dans le hall du laboratoire"
+          src={missionImg}
+          alt="Biologiste réalisant une analyse sur un automate du laboratoire"
           loading="lazy"
           width={1400}
           height={1000}
@@ -52,16 +54,32 @@ function About() {
         <div>
           <h2 className="text-3xl font-extrabold">Notre mission</h2>
           <p className="mt-4 text-muted-foreground">
-            Rendre le diagnostic accessible, rapide et compréhensible. Chaque résultat est validé par un
-            biologiste, expliqué simplement et disponible en ligne pour être partagé avec votre médecin
-            traitant.
+            Rendre le diagnostic accessible, rapide et compréhensible. Chaque résultat est validé
+            par un biologiste, expliqué simplement et disponible en ligne pour être partagé avec
+            votre médecin traitant.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {[
-              { icon: Target, t: "Précision", d: "Double contrôle qualité sur chaque série d'analyses." },
-              { icon: HeartHandshake, t: "Proximité", d: "Un accueil bienveillant et un accompagnement personnalisé." },
-              { icon: Microscope, t: "Technologie", d: "Automates modernes et traçabilité complète des échantillons." },
-              { icon: Award, t: "Fiabilité", d: "Participation à des programmes de contrôle externe." },
+              {
+                icon: Target,
+                t: "Précision",
+                d: "Double contrôle qualité sur chaque série d'analyses.",
+              },
+              {
+                icon: HeartHandshake,
+                t: "Proximité",
+                d: "Un accueil bienveillant et un accompagnement personnalisé.",
+              },
+              {
+                icon: Microscope,
+                t: "Technologie",
+                d: "Automates modernes et traçabilité complète des échantillons.",
+              },
+              {
+                icon: Award,
+                t: "Fiabilité",
+                d: "Participation à des programmes de contrôle externe.",
+              },
             ].map((v) => (
               <div key={v.t} className="rounded-2xl border border-border bg-card p-4">
                 <v.icon className="h-5 w-5 text-primary" />
@@ -84,7 +102,11 @@ function About() {
               <Card key={s.id} className="card-hover border-border/70">
                 <CardContent className="flex items-center gap-4 p-6">
                   <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-hero-gradient font-display text-lg font-bold text-primary-foreground">
-                    {s.name.split(" ").slice(-2).map((p) => p[0]).join("")}
+                    {s.name
+                      .split(" ")
+                      .slice(-2)
+                      .map((p) => p[0])
+                      .join("")}
                   </span>
                   <div className="min-w-0">
                     <p className="truncate font-semibold">{s.name}</p>
@@ -95,7 +117,9 @@ function About() {
             ))}
           </div>
           <Button asChild className="mt-10">
-            <Link to="/rendez-vous">Consulter un spécialiste</Link>
+            <Link to="/rendez-vous" search={{ service: undefined }}>
+              Consulter un spécialiste
+            </Link>
           </Button>
         </div>
       </section>

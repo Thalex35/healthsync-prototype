@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,6 +30,11 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<Msg[]>([
     { from: "bot", text: "Bonjour 👋 Je suis l'assistant MDS Lab. Comment puis-je vous aider ?" },
   ]);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (open) inputRef.current?.focus();
+  }, [open]);
 
   const send = (text: string) => {
     if (!text.trim()) return;
@@ -51,7 +56,10 @@ export function ChatWidget() {
     <>
       <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
         {open && (
-          <div className="w-[min(22rem,calc(100vw-2.5rem))] overflow-hidden rounded-2xl border border-border bg-card shadow-lift">
+          <div
+            id="assistant-panel"
+            className="w-[min(22rem,calc(100vw-2.5rem))] overflow-hidden rounded-2xl border border-border bg-card shadow-lift"
+          >
             <div className="flex items-center justify-between bg-hero-gradient px-4 py-3 text-primary-foreground">
               <div>
                 <p className="text-sm font-semibold">Assistance MDS Lab</p>
@@ -62,7 +70,11 @@ export function ChatWidget() {
               </button>
             </div>
 
-            <div className="max-h-72 space-y-3 overflow-y-auto p-4">
+            <div
+              className="max-h-72 space-y-3 overflow-y-auto p-4"
+              aria-live="polite"
+              aria-atomic="false"
+            >
               {messages.map((m, i) => (
                 <div key={i} className={m.from === "user" ? "flex justify-end" : "flex"}>
                   <p
@@ -97,6 +109,8 @@ export function ChatWidget() {
               }}
             >
               <Input
+                ref={inputRef}
+                aria-label="Votre message"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Écrivez votre message…"
@@ -120,6 +134,8 @@ export function ChatWidget() {
           onClick={() => setOpen((v) => !v)}
           className="grid h-14 w-14 place-items-center rounded-full bg-hero-gradient text-primary-foreground shadow-lift transition-transform hover:scale-105"
           aria-label="Ouvrir l'assistance"
+          aria-expanded={open}
+          aria-controls="assistant-panel"
         >
           {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
         </button>

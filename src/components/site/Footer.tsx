@@ -21,35 +21,68 @@ export function Footer() {
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wide">Navigation</h3>
           <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/services" className="hover:text-foreground">Services</Link></li>
-            <li><Link to="/rendez-vous" className="hover:text-foreground">Prendre rendez-vous</Link></li>
-            <li><Link to="/suivi" className="hover:text-foreground">Résultats en ligne</Link></li>
-            <li><Link to="/faq" className="hover:text-foreground">FAQ</Link></li>
+            <li>
+              <Link to="/services" className="hover:text-foreground">
+                Services
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/rendez-vous"
+                search={{ service: undefined }}
+                className="hover:text-foreground"
+              >
+                Prendre rendez-vous
+              </Link>
+            </li>
+            <li>
+              <Link to="/suivi" className="hover:text-foreground">
+                Résultats en ligne
+              </Link>
+            </li>
+            <li>
+              <Link to="/faq" className="hover:text-foreground">
+                FAQ
+              </Link>
+            </li>
           </ul>
         </div>
 
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wide">Contact</h3>
           <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-            <li className="flex gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Delmas 31, Port-au-Prince, Haïti</li>
-            <li className="flex gap-2"><Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> +509 3700 0000</li>
-            <li className="flex gap-2"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> contact@mdslabhaiti.com</li>
+            <li className="flex gap-2">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Delmas 31, Port-au-Prince,
+              Haïti
+            </li>
+            <li className="flex gap-2">
+              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> +509 3700 0000
+            </li>
+            <li className="flex gap-2">
+              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> contact@mdslabhaiti.com
+            </li>
           </ul>
         </div>
 
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-wide">Horaires</h3>
           <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-            <li className="flex gap-2"><Clock className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Lun – Ven : 6h30 – 18h00</li>
-            <li className="flex gap-2"><Clock className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Sam – Dim : 7h00 – 15h00</li>
-            <li className="flex gap-2"><Clock className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Urgences : 24h/24</li>
+            <li className="flex gap-2">
+              <Clock className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Lun – Ven : 6h30 – 18h00
+            </li>
+            <li className="flex gap-2">
+              <Clock className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Sam – Dim : 7h00 – 15h00
+            </li>
+            <li className="flex gap-2">
+              <Clock className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Urgences : 24h/24
+            </li>
           </ul>
         </div>
       </div>
 
       <div className="border-t border-border px-4 py-6 text-center text-xs text-muted-foreground sm:px-6">
-        Prototype de démonstration — © {new Date().getFullYear()} MDS Lab Haïti. Les données affichées
-        sont fictives.
+        Prototype de démonstration — © {new Date().getFullYear()} MDS Lab Haïti. Les données
+        affichées sont fictives.
       </div>
     </footer>
   );

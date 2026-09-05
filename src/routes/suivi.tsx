@@ -70,10 +70,36 @@ const results = [
   },
 ];
 
+const appointmentDate = (daysFromToday: number, time: string) => {
+  const date = new Date();
+  date.setDate(date.getDate() + daysFromToday);
+  return `${new Intl.DateTimeFormat("fr-FR", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(date)} · ${time}`;
+};
+
 const appointments = [
-  { t: "Prélèvement sanguin", d: "Mardi 4 août 2026 · 07:15", who: "Inf. Widlyne Célestin", state: "Confirmé" },
-  { t: "Consultation cardiologie", d: "Jeudi 13 août 2026 · 15:00", who: "Dr. Ronald Pierre", state: "En attente" },
-  { t: "Échographie abdominale", d: "Lundi 22 juin 2026 · 09:30", who: "Dr. Sandra Louis", state: "Terminé" },
+  {
+    t: "Prélèvement sanguin",
+    d: appointmentDate(3, "07:15"),
+    who: "Inf. Widlyne Célestin",
+    state: "Confirmé",
+  },
+  {
+    t: "Consultation cardiologie",
+    d: appointmentDate(12, "15:00"),
+    who: "Dr. Ronald Pierre",
+    state: "En attente",
+  },
+  {
+    t: "Échographie abdominale",
+    d: appointmentDate(-45, "09:30"),
+    who: "Dr. Sandra Louis",
+    state: "Terminé",
+  },
 ];
 
 function Suivi() {
@@ -83,11 +109,13 @@ function Suivi() {
     return (
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-primary">Espace patient</p>
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+            Espace patient
+          </p>
           <h1 className="mt-3 text-4xl font-extrabold sm:text-5xl">Vos résultats, en un clic</h1>
           <p className="mt-5 text-muted-foreground">
-            Suivez l'avancement de vos analyses en temps réel, retrouvez l'historique de vos bilans et
-            partagez un compte rendu signé avec votre médecin traitant.
+            Suivez l'avancement de vos analyses en temps réel, retrouvez l'historique de vos bilans
+            et partagez un compte rendu signé avec votre médecin traitant.
           </p>
           <ul className="mt-8 space-y-3">
             {[
@@ -110,7 +138,8 @@ function Suivi() {
             </span>
             <h2 className="mt-5 text-xl font-bold">Connexion patient</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Démonstration : cliquez simplement sur « Se connecter ».
+              Prototype uniquement : aucune donnée réelle n'est consultée et toute valeur de
+              connexion est acceptée.
             </p>
             <form
               className="mt-6 space-y-4"
@@ -120,6 +149,10 @@ function Suivi() {
                 toast.success("Bienvenue dans votre espace patient (démo)");
               }}
             >
+              <p className="rounded-xl bg-primary/5 p-3 text-xs text-muted-foreground">
+                Les résultats affichés sont fictifs et ne doivent pas être utilisés comme un vrai
+                espace médical.
+              </p>
               <div className="space-y-2">
                 <Label htmlFor="id">Numéro de dossier</Label>
                 <Input id="id" defaultValue="MDS-48210" />
@@ -197,10 +230,18 @@ function Suivi() {
                 <p className="mt-3 text-sm text-muted-foreground">{r.detail}</p>
                 {r.progress === 100 && (
                   <div className="mt-4 flex flex-wrap gap-2">
-                    <Button size="sm" variant="outline" onClick={() => toast.success("PDF téléchargé (démo)")}>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => toast.success("PDF téléchargé (démo)")}
+                    >
                       <Download className="mr-2 h-4 w-4" /> Télécharger
                     </Button>
-                    <Button size="sm" variant="ghost" onClick={() => toast.success("Lien de partage copié (démo)")}>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => toast.success("Lien de partage copié (démo)")}
+                    >
                       <Share2 className="mr-2 h-4 w-4" /> Partager avec mon médecin
                     </Button>
                   </div>
@@ -220,7 +261,13 @@ function Suivi() {
                   <p className="text-sm text-muted-foreground">{a.who}</p>
                 </div>
                 <Badge
-                  variant={a.state === "Confirmé" ? "default" : a.state === "Terminé" ? "outline" : "secondary"}
+                  variant={
+                    a.state === "Confirmé"
+                      ? "default"
+                      : a.state === "Terminé"
+                        ? "outline"
+                        : "secondary"
+                  }
                 >
                   {a.state}
                 </Badge>

@@ -37,8 +37,8 @@ function Contact() {
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">Contact</p>
           <h1 className="mt-3 text-4xl font-extrabold sm:text-5xl">Nous sommes à votre écoute</h1>
           <p className="mt-5 max-w-2xl text-muted-foreground">
-            Une question sur une analyse, un résultat ou une prise en charge ? Notre équipe répond
-            7 jours sur 7.
+            Une question sur une analyse, un résultat ou une prise en charge ? Notre équipe répond 7
+            jours sur 7.
           </p>
         </div>
       </section>
@@ -72,15 +72,29 @@ function Contact() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="c-phone">Téléphone</Label>
-                  <Input id="c-phone" required placeholder="+509 …" />
+                  <Input
+                    id="c-phone"
+                    required
+                    inputMode="tel"
+                    pattern="[+0-9 ()-]{8,20}"
+                    maxLength={20}
+                    placeholder="+509 …"
+                  />
                 </div>
                 <div className="space-y-2 sm:col-span-2">
                   <Label htmlFor="c-email">Email</Label>
-                  <Input id="c-email" type="email" placeholder="vous@exemple.com" />
+                  <Input id="c-email" type="email" maxLength={120} placeholder="vous@exemple.com" />
                 </div>
                 <div className="space-y-2 sm:col-span-2">
                   <Label htmlFor="c-msg">Votre message</Label>
-                  <Textarea id="c-msg" rows={5} required placeholder="Comment pouvons-nous vous aider ?" />
+                  <Textarea
+                    id="c-msg"
+                    rows={5}
+                    required
+                    minLength={10}
+                    maxLength={2000}
+                    placeholder="Comment pouvons-nous vous aider ?"
+                  />
                 </div>
                 <div className="sm:col-span-2">
                   <Button type="submit">
@@ -95,9 +109,23 @@ function Contact() {
         <div className="space-y-4">
           {[
             { icon: MapPin, t: "Adresse", d: "Delmas 31, Rue Mercier, Port-au-Prince, Haïti" },
-            { icon: Phone, t: "Téléphone", d: "+509 3700 0000 · +509 2800 1111" },
-            { icon: Mail, t: "Email", d: "contact@mdslabhaiti.com" },
-            { icon: Clock, t: "Horaires", d: "Lun–Ven 6h30–18h · Sam–Dim 7h–15h · Urgences 24h/24" },
+            {
+              icon: Phone,
+              t: "Téléphone",
+              d: "+509 3700 0000 · +509 2800 1111",
+              href: "tel:+50937000000",
+            },
+            {
+              icon: Mail,
+              t: "Email",
+              d: "contact@mdslabhaiti.com",
+              href: "mailto:contact@mdslabhaiti.com",
+            },
+            {
+              icon: Clock,
+              t: "Horaires",
+              d: "Lun–Ven 6h30–18h · Sam–Dim 7h–15h · Urgences 24h/24",
+            },
           ].map((c) => (
             <Card key={c.t} className="border-border/70">
               <CardContent className="flex gap-4 p-5">
@@ -106,7 +134,16 @@ function Contact() {
                 </span>
                 <div className="min-w-0">
                   <p className="font-semibold">{c.t}</p>
-                  <p className="mt-1 text-sm text-muted-foreground">{c.d}</p>
+                  {c.href ? (
+                    <a
+                      href={c.href}
+                      className="mt-1 block text-sm text-muted-foreground hover:text-primary"
+                    >
+                      {c.d}
+                    </a>
+                  ) : (
+                    <p className="mt-1 text-sm text-muted-foreground">{c.d}</p>
+                  )}
                 </div>
               </CardContent>
             </Card>
